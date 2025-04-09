@@ -39,6 +39,6 @@ const digitToLetter = {
   }
   
   // Tes
-  console.log("Input 1:", 12, "→", step3_convertNumberToLetters(12));    // ABEFIABAB ✅
-  console.log("Input 2:", -16, "→", step3_convertNumberToLetters(-16)); // ABEFIJAB ✅
+  console.log("Input 1:", 12, "→", step3_convertNumberToLetters(12));    // ABEFIABAB
+  console.log("Input 2:", -16, "→", step3_convertNumberToLetters(-16)); // ABEFIJAB
   

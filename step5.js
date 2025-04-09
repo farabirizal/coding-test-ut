@@ -49,4 +49,4 @@ const step5Map = {
   
   console.log("Step 5 Output 1:", step5_convertToNumbers(output1)); // 1 1 3 3 5 1 1 1 3
   console.log("Step 5 Output 2:", step5_convertToNumbers(output2)); // 1 1 3 3 5 5 1 3
-  
+  //Step 5 clear
