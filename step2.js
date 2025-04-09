@@ -37,19 +37,19 @@ const upperMap = {
     return sentence.split('').map(mapCharToNumber);
   }
   
-  // Fungsi step 2: hitung total dengan selang-seling + dan -
+  // Fungsi step 2: Hitungan + + - + - + -
   function alternatingSum(numbers) {
     return numbers.reduce((acc, num, idx) => {
       if (idx === 0 || idx % 2 === 1) {
-        return acc + num; // index 0 dan ganjil → tambah
+        return acc + num; // index 0 dan ganjil > tambah
       } else {
-        return acc - num; // index genap (selain 0) → kurang
+        return acc - num; // index genap (selain 0) > kurang
       }
     }, 0);
   }
   
   
-  // Input buat ngetes
+  // Input
   const input1 = "Titanic";
   const input2 = "Avenger Endgame";
   
