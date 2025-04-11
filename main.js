@@ -1,7 +1,6 @@
-// Kamus tunggal untuk semua step
-// berisi konversi huruf → angka dan angka → huruf
+// <kamus utama yang dipakai semua step>
 const kamus = {
-    // huruf kapital ke angka (step 1 & 4)
+    // <huruf kapital ke angka, untuk step 1 dan step 4>
     upper: {
       A: 0, B: 1, C: 1, D: 1, E: 2,
       F: 3, G: 3, H: 3,
@@ -10,7 +9,7 @@ const kamus = {
       O: 6, P: 7, Q: 7, R: 7, S: 7, T: 7,
       U: 8, V: 9, W: 9, X: 9, Y: 9, Z: 9
     },
-    // huruf kecil ke angka (step 1)
+    // <huruf kecil ke angka, untuk step 1>
     lower: {
       a: 9, b: 8, c: 8, d: 8,
       e: 7, f: 6, g: 6, h: 6,
@@ -18,13 +17,13 @@ const kamus = {
       o: 3, p: 2, q: 2, r: 2, s: 2, t: 2,
       u: 1, v: 0, w: 0, x: 0, y: 0, z: 0
     },
-    // angka ke huruf kapital (step 3 & 4)
+    // <angka ke huruf kapital, dipakai step 3 dan 4>
     digitToLetter: {
       0: 'A', 1: 'B', 2: 'E', 3: 'F',
       4: 'I', 5: 'J', 6: 'O', 7: 'P',
       8: 'U', 9: 'V'
     },
-    // huruf kapital ke angka (khusus step 5)
+    // <huruf kapital ke angka, khusus step 5>
     hurufToFinal: {
       A: 1, B: 1, C: 1, D: 1,
       E: 3, F: 3, G: 3, H: 3,
@@ -33,9 +32,8 @@ const kamus = {
       U: 8, V: 9, W: 9, X: 9, Y: 9, Z: 9
     }
   };
-
-    // Step 1: ubah kalimat ke deretan angka
-
+  
+  // <step 1 - mapping huruf satu per satu ke angka>
   function mapCharToNumber(char) {
     if (char === ' ') return 0;
     if (char in kamus.upper) return kamus.upper[char];
@@ -43,15 +41,17 @@ const kamus = {
     return 0;
   }
   
+  // <step 1 - ubah kalimat ke deretan angka>
   function convertToNumber(sentence) {
     return sentence.split('').map(mapCharToNumber);
   }
-
-  // Step 2: penjumlahan selang-seling (+ - + -)
+  
+  // <step 2 - hitung angka dengan pola + - + - >
   function alternatingSum(numbers) {
     return numbers.reduce((acc, num, idx) => idx === 0 || idx % 2 === 1 ? acc + num : acc - num, 0);
   }
   
+  // <step 3 - buat pola angka berulang dari 0-5 sesuai total>
   function numberToSequence(total) {
     const pattern = [0, 1, 2, 3, 4, 5];
     const sequence = [];
@@ -68,24 +68,25 @@ const kamus = {
     }
     return sequence;
   }
-
-    // Step 3: buat pola angka total (0-5 berulang)
+  
+  // <step 3 - konversi angka jadi huruf kapital>
   function step3_convertNumberToLetters(step2Result) {
     const total = Math.abs(step2Result);
     const sequence = numberToSequence(total);
     return sequence.map(num => kamus.digitToLetter[num] || '?').join('');
   }
   
-    // Step 4: hitung total huruf kapital dari step 3
+  // <step 4 - hitung total dari huruf kapital>
   function hurufKeTotalAngka(kalimat) {
     return kalimat.split('').map(h => kamus.upper[h] ?? 0).reduce((a, b) => a + b, 0);
   }
-
-  // Step 4: ubah total ke huruf kapital baru (digit ke huruf)
+  
+  // <step 4 - ubah total jadi huruf kapital berdasarkan digit>
   function digitKeHuruf(total) {
     return total.toString().split('').map(d => kamus.digitToLetter[Number(d)] || '?');
   }
   
+  // <step 4 - ganti huruf terakhir dari hasil step 3>
   function step4_transform(step3String, overrideTotal = null) {
     const total = overrideTotal ?? hurufKeTotalAngka(step3String);
     const hurufTambahan = digitKeHuruf(total);
@@ -93,11 +94,13 @@ const kamus = {
     const hasil = [...hurufArray.slice(0, hurufArray.length - hurufTambahan.length), ...hurufTambahan];
     return hasil.join(' ');
   }
-    // Step 5: konversi huruf step 4 ke angka berdasarkan kamus final
+  
+  // <step 5 - ubah huruf dari step 4 ke angka akhir>
   function step5_convertToNumbers(step4Output) {
     return step4Output.split(' ').map(h => kamus.hurufToFinal[h] ?? '?').join(' ');
   }
   
+  // <fungsi utama untuk menjalankan semua step>
   function prosesKalimat(input, overrideStep4Total = null) {
     const angkaStep1 = convertToNumber(input);
     const hasilStep2 = alternatingSum(angkaStep1);
@@ -114,6 +117,7 @@ const kamus = {
     console.log("-----------------------------");
   }
   
+  // <pengujian langsung>
   prosesKalimat("Titanic");
   prosesKalimat("Avenger Endgame", 12);
   
